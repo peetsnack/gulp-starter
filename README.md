@@ -188,10 +188,79 @@ message.
 Add *gulpfile.js* to the repo, and commit everything.
 
 
+## Add a `clean` task
 
+In this step, we'll implement some fancy task management code, but 
+without using it much yet.
 
+Change default.js to:
 
+* Require [gulp-sequence](https://www.npmjs.com/package/gulp-sequence), which
+  allows easy control over the ordering of tasks
+* Require a custom utility module getEnabledTasks, described more below
+* Add the `clean` task
 
+The whole thing should look like this now:
+
+```
+var gulp = require('gulp');
+var gulpSequence = require('gulp-sequence');
+var getEnabledTasks = require('../lib/getEnabledTasks');
+
+gulp.task('default', function(cb) {
+  gulpSequence('clean', cb);
+});
+```
+
+Install gulp-sequence:
+
+```
+npm install gulp-sequence --save-dev
+```
+
+Create the *gulpfile.js/lib/getEnabledTasks.js*, starting out with the following:
+
+```js
+var config = require('../config');
+```
+
+Create *gulpfile.js/config.json*, that defines the main source and destination
+directories, with:
+
+```json
+{
+  "root": {
+    "src": "./src",
+    "dest": "./public"
+  }
+}
+```
+
+Create the *gulpfile.js/tasks/clean.js* task file with:
+
+```js
+var gulp   = require('gulp')
+var del    = require('del')
+var config = require('../config')
+var path   = require('path')
+
+var cleanTask = function (cb) {
+  var files = [];
+
+  // Don't touch node_modules or source files!
+  files.push('!node_modules/**/*');
+  files.push('!' + path.join(config.root.src, '/**/*'));
+
+  del(files).then(function(paths) {
+    // console.log(paths)
+    cb();
+  })
+}
+
+gulp.task('clean', cleanTask);
+```
+
+Run `gulp clean`, and `gulp` by itself, and verify that they work.
 
 
 
