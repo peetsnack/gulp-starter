@@ -19,4 +19,19 @@ git remote add origin git@github.com:Klortho/gulp-starter.git
 ```
 
 Create a README.md file and LICENSE file.  Use WTFPL for the license.
+Create .gitignore with:
+
+```
+*.sublime-project
+*.sublime-workspace
+```
+
+Then:
+
+```
+git add README.md LICENSE .gitignore
+git commit -m "Initial commit"
+git push origin master
+```
+
 
