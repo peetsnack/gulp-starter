@@ -95,10 +95,34 @@ git commit -m "Initial commit"
 git push origin master
 ```
 
+## Set up your Node environment
+
+Install [nvm](https://github.com/creationix/nvm).
+You can install with homebrew with:
+
+```
+brew install nvm
+```
+
+Next, check the [Node.js page](https://nodejs.org/en/) page for the latest
+LTS (long-term-support) version of Node.js, and install it with, for
+example, 
+
+```
+nvm install 4.2.2
+```
+
+Check that it worked:
+
+```
+$ node --version    #=> v4.2.2
+```
+
+
+
 ## Create package file
 
-Make sure you have an up-to-date version of Node.js and npm installed.
-Then:
+Run: 
 
 ```
 npm init
@@ -110,6 +134,64 @@ Answer the questions:
 * *index.js* for the entry point?
 * test command: leave blank for now
 * author: Chris Maloney
+
+Add it and commit. Then:
+
+```
+npm install
+```
+
+
+# Start with gulp
+
+Install `gulp` to this project, while at the same time adding it to 
+package.json:
+
+```
+npm install gulp --save-dev
+```
+
+That created the *node_modules* directory. Add that to your .gitignore.
+
+Next, create the "gulpfile", which will really
+be a tree of files. Normally, it's one file named *gulpfile.js*, but 
+in this implementation, *gulpfile.js* will be a directory, with the main
+script being *index.js* inside that. Create that file:
+
+```
+var requireDir = require('require-dir')
+requireDir('./tasks', { recurse: true })
+```
+
+Install the `require-dir` module:
+
+```
+npm install require-dir --save-dev
+```
+
+Create the subdirectory *tasks*, and then the file *default.js* inside that:
+
+```
+var gulp = require('gulp')
+gulp.task('default', function(cb) {});
+```
+
+Check that it works:
+
+```
+gulp
+```
+
+That should run without errors, and give `Starting 'default'...` as the last
+message.
+
+Add *gulpfile.js* to the repo, and commit everything.
+
+
+
+
+
+
 
 
 
