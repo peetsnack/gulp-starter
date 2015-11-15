@@ -1,0 +1,24 @@
+{
+  "name": "gulp-starter",
+  "version": "0.0.1",
+  "description": "My step-by-step walkthrough of the vigetlabs gulp-starter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Klortho/gulp-starter.git"
+  },
+  "keywords": [
+    "gulp",
+    "node",
+    "javascript"
+  ],
+  "author": "Chris Maloney",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/Klortho/gulp-starter/issues"
+  },
+  "homepage": "https://github.com/Klortho/gulp-starter#readme"
+}
