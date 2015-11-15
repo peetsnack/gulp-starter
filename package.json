@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/Klortho/gulp-starter/issues"
   },
-  "homepage": "https://github.com/Klortho/gulp-starter#readme"
+  "homepage": "https://github.com/Klortho/gulp-starter#readme",
+  "dependencies": {
+    "gulp": "^3.9.0"
+  }
 }
