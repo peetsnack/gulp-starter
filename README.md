@@ -193,6 +193,9 @@ message.
 
 Add *gulpfile.js* to the repo, and commit everything.
 
+***See branch 
+[03-gulp](https://github.com/Klortho/gulp-starter/tree/03-gulp).***
+
 
 ## Add a `clean` task
 
