@@ -144,6 +144,9 @@ Add it and commit. Then:
 npm install
 ```
 
+***See branch 
+[02-package-json](https://github.com/Klortho/gulp-starter/tree/02-package-json).***
+
 
 # Start with gulp
 
