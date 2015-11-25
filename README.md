@@ -273,6 +273,9 @@ gulp.task('clean', cleanTask);
 
 Run `gulp clean`, and `gulp` by itself, and verify that they work.
 
+***See branch 
+[04-clean-task](https://github.com/Klortho/gulp-starter/tree/04-clean-task).***
+
 
 ## Add `html` and `images` tasks
 
