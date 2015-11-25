@@ -4,7 +4,7 @@ var config = require('../config')
 var path   = require('path')
 
 var cleanTask = function (cb) {
-  var files = [];
+  var files = ['public'];
 
   // Don't touch node_modules or source files!
   files.push('!node_modules/**/*');

@@ -120,7 +120,7 @@ $ node --version    #=> v4.2.2
 
 
 
-## Create package file
+## Create package.json file
 
 Run: 
 
@@ -163,7 +163,7 @@ var requireDir = require('require-dir')
 requireDir('./tasks', { recurse: true })
 ```
 
-Install the `require-dir` module:
+Install the [require-dir](https://www.npmjs.com/package/require-dir) module:
 
 ```
 npm install require-dir --save-dev
@@ -191,7 +191,9 @@ Add *gulpfile.js* to the repo, and commit everything.
 ## Add a `clean` task
 
 In this step, we'll implement some fancy task management code, but 
-without using it much yet.
+without using it much yet. The proximate goal is to create a
+`clean` task. See the recipe [Delete files and 
+folders](https://github.com/gulpjs/gulp/blob/master/docs/recipes/delete-files-folder.md) for more info.
 
 Change default.js to:
 
@@ -263,10 +265,158 @@ gulp.task('clean', cleanTask);
 Run `gulp clean`, and `gulp` by itself, and verify that they work.
 
 
+## Add `html` and `images` tasks
+
+For now, these tasks will simply copy the src files to the destination
+directory (public).
+
+In gulpfile.js/lib/getEnabledTasks.js, create some arrays to hold
+two groups of tasks:
+
+```js
+var assetTasks = ['images'];
+var codeTasks = ['html'];
+```
+
+Next define its export to be a function that returns an object
+that has two lists of tasks, each of which is a subset of the
+two groups:
+
+```js
+var compact = require('lodash/array/compact');
+...
+
+module.exports = function(env) {
+
+  // This is the function used to filter the lists of tasks.
+  // Right now, it only checks to see if the task is listed in
+  // config.json.
+  var matchFilter = function(task) {
+    if (config.tasks[task]) {
+      return task;
+    }
+  };
+
+  // Return subsets of the two lists of tasks
+  return {
+    assetTasks: compact(assetTasks.map(matchFilter)),
+    codeTasks: compact(codeTasks.map(matchFilter))
+  };
+}
+```
+
+This uses the `compact` method from [lodash](https://lodash.com/), 
+so you'll need to install it:
+
+```
+npm install lodash --save-dev
+```
+
+Add a `tasks` object to config.json, with parameters for
+these new tasks:
+
+```js
+"tasks": {
+  "html": {
+    "src": "html",
+    "dest": "./"
+  },
+
+  "images": {
+    "src": "images",
+    "dest": "images",
+    "extensions": ["jpg", "png", "svg", "gif"]
+  }
+}
+```
+
+Create a gulpfile.js/tasks/html.js file, with:
+
+```js
+var config = require('../config')
+if (!config.tasks.html) return;
+
+var gulp = require('gulp');
+var path = require('path');
+
+var paths = {
+  src: path.join(config.root.src, config.tasks.html.src, '/**/*.html'),
+  dest: path.join(config.root.dest, config.tasks.html.dest),
+};
+
+var htmlTask = function() {
+  return gulp.src(paths.src)
+    .pipe(gulp.dest(paths.dest))
+};
+
+gulp.task('html', htmlTask);
+module.exports = htmlTask;
+```
+
+Create a "hello world" HTML file in src/html/index.html.
+Then run `gulp html`, and verify that the `html` task runs, and the
+file gets copied to public/index.html.
+
+Commit gulpfile.js/tasks/html.js and the src/ directory to git,
+and add public to .gitignore.
+
+Similarly, create gulpfile.js/tasks/images.js:
+
+```js
+var config = require('../config');
+if (!config.tasks.images) return;
+
+var gulp = require('gulp');
+var path = require('path');
+
+var paths = {
+  src: path.join(config.root.src, config.tasks.images.src, '/**'),
+  dest: path.join(config.root.dest, config.tasks.images.dest)
+};
+
+var imagesTask = function() {
+  return gulp.src(paths.src)
+    .pipe(gulp.dest(paths.dest));
+};
+
+gulp.task('images', imagesTask);
+module.exports = imagesTask;
+```
+
+Copy an image file into src/images (e.g. gulp.png), and then run
+
+```
+gulp images
+```
+
+Verify that the file gets copied to public/images.
+
+Now, in the clean.js task, add "public" to the list of files to
+clean:
+
+```js
+var files = ['public'];
+```
+
+Run `gulp` by itself, and verify that all the three tasks run.
 
 
 
-# Technologies
+# Technologies / reference documentation
+
+## Gulp tasks
+
+This repo uses some fancy techniques to manage gulp tasks.
+
+All of the available tasks are listed in gulpfile.js/config.json.
+
+When you enter a `gulp` command, it first reads gulpfile.js/index.js,
+which then recursively `require`s all of the files under 
+the tasks subdirectory.
+
+
+
+
 
 ## Webpack
 

@@ -2,5 +2,18 @@
   "root": {
     "src": "./src",
     "dest": "./public"
+  },
+
+  "tasks": {
+    "html": {
+      "src": "html",
+      "dest": "./"
+    },
+
+    "images": {
+      "src": "images",
+      "dest": "images",
+      "extensions": ["jpg", "png", "svg", "gif"]
+    }
   }
 }

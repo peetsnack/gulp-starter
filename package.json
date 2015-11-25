@@ -26,6 +26,7 @@
     "del": "^2.1.0",
     "gulp": "^3.9.0",
     "gulp-sequence": "^0.4.1",
+    "lodash": "^3.10.1",
     "require-dir": "^0.3.0"
   }
 }
