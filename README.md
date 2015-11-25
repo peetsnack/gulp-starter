@@ -95,6 +95,10 @@ git commit -m "Initial commit"
 git push origin master
 ```
 
+***See branch 
+[01-initial-repo](https://github.com/Klortho/gulp-starter/tree/01-initial-repo).***
+
+
 ## Set up your Node environment
 
 Install [nvm](https://github.com/creationix/nvm).
@@ -117,7 +121,6 @@ Check that it worked:
 ```
 $ node --version    #=> v4.2.2
 ```
-
 
 
 ## Create package.json file
