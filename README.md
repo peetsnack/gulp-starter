@@ -412,6 +412,8 @@ var files = ['public'];
 
 Run `gulp` by itself, and verify that all the three tasks run.
 
+***See branch 
+[05-html-images-tasks](https://github.com/Klortho/gulp-starter/tree/05-html-images-tasks).***
 
 
 # Technologies / reference documentation
