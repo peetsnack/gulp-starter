@@ -1,5 +1,4 @@
 var config = require('../config');
-var compact = require('lodash/array/compact');
 
 var assetTasks = ['images'];
 var codeTasks = ['html'];
@@ -18,7 +17,7 @@ module.exports = function(env) {
 
   // Return subsets of the two lists of tasks
   return {
-    assetTasks: compact(assetTasks.map(matchFilter)),
-    codeTasks: compact(codeTasks.map(matchFilter))
+    assetTasks: assetTasks.map(matchFilter).filter(Boolean),
+    codeTasks: codeTasks.map(matchFilter).filter(Boolean)
   };
 }
